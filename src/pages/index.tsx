@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Container } from "@/components/Layout/Container";
 
@@ -10,17 +11,19 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { CardMovie } from "@/components/CardMovie/CardMovie";
-import Link from "next/link";
 import { SkeletonCard } from "@/components/Skeleton/SkeletonCard";
 
 export default function Home() {
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
 
   const [loading, setLoading] = useState(true);
+
+  const apiKey = process.env.API_KEY;
+
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=es-MX&page=1`
+        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-MX&page=1`
       )
       .then((res) => {
         setPopularMovies(res.data.results.slice(0, 3));
