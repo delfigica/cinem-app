@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import {
   Box,
@@ -20,7 +21,11 @@ const Navbar = () => {
 
   const [search, setSearch] = useState("");
 
+  const router = useRouter();
+
   const handleChangeSearch = (e: any) => {
+    let query = e.target.value.replace(/ /g, "%20");
+    router.push("/search?query=" + query);
     setSearch(e.target.value);
   };
 
