@@ -6,11 +6,9 @@ import {
   IconButton,
   Box,
   TextField,
-  useTheme,
-  useMediaQuery,
   InputAdornment,
   Typography,
-  Button,
+
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -18,13 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const MenuDrawer = () => {
-  const [user, setUser] = useState(true);
-
   const [openDrawer, setOpenDrawer] = useState(false);
-
-  const theme = useTheme();
-
-  const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (
     <>
@@ -74,7 +66,7 @@ const MenuDrawer = () => {
               placeholder="Búsque un título de película"
             />
             <Link
-              href="/"
+              href="/movies"
               style={{ textDecoration: "none", margin: "10px 0px" }}
             >
               <Typography
@@ -88,46 +80,23 @@ const MenuDrawer = () => {
                 Películas
               </Typography>
             </Link>
-            {user ? (
-              <Link
-                href="/"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  textDecoration: "none",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography color="primary" sx={{ fontWeight: 600 }}>
-                  Lista de favoritos
-                </Typography>
-                <IconButton color="primary">
-                  <FavoriteIcon />
-                </IconButton>
-              </Link>
-            ) : (
-              <>
-                <hr />
-                <Link href="/">
-                  <Button
-                    sx={{ fontWeight: 600, margin: "15px 0px" }}
-                    fullWidth
-                    color="secondary"
-                  >
-                    Registrarse
-                  </Button>
-                </Link>
-                <Link href="/">
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    sx={{ fontWeight: 600 }}
-                  >
-                    Iniciar Sesión
-                  </Button>
-                </Link>
-              </>
-            )}
+
+            <Link
+              href="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                justifyContent: "center",
+              }}
+            >
+              <Typography color="primary" sx={{ fontWeight: 600 }}>
+                Lista de favoritos
+              </Typography>
+              <IconButton color="primary">
+                <FavoriteIcon />
+              </IconButton>
+            </Link>
           </Box>
         </Box>
       </Drawer>
