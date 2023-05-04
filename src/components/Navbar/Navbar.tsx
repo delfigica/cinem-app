@@ -38,6 +38,7 @@ const Navbar = () => {
               justifyContent: "space-between",
               alignItems: "center",
               padding: "1em 3em",
+              boxShadow: '0px 10px 59px -29px rgba(0,0,0,0.75)'
             }
           : {
               display: "flex",
@@ -96,10 +97,10 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            <Typography color="primary" sx={{ fontWeight: 600 }}>
-              Lista de favoritos
+            <Typography color="secondary" sx={{ fontWeight: 600 }}>
+              Favoritos
             </Typography>
-            <IconButton color="primary">
+            <IconButton color="secondary">
               <FavoriteIcon />
             </IconButton>
           </Link>

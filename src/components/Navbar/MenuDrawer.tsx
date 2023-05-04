@@ -8,7 +8,6 @@ import {
   TextField,
   InputAdornment,
   Typography,
-
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -103,10 +102,10 @@ const MenuDrawer = () => {
                 justifyContent: "center",
               }}
             >
-              <Typography color="primary" sx={{ fontWeight: 600 }}>
-                Lista de favoritos
+              <Typography color="secondary" sx={{ fontWeight: 600 }}>
+                Favoritos
               </Typography>
-              <IconButton color="primary">
+              <IconButton color="secondary">
                 <FavoriteIcon />
               </IconButton>
             </Link>
