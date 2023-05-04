@@ -30,7 +30,7 @@ export const Reviews = ({ mid }: any) => {
         setReviews((prev) => {
           return prev.concat(res.data.results);
         });
-        setLoading(false)
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -62,7 +62,12 @@ export const Reviews = ({ mid }: any) => {
                   height: "200px",
                   margin: " 20px 160px",
                 }
-              : { background: "#3CCE88", width: "300px", height: "300px", margin: '10px auto' }
+              : {
+                  background: "#3CCE88",
+                  width: "300px",
+                  height: "300px",
+                  margin: "10px auto",
+                }
           }
         />
       ) : (
