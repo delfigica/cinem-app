@@ -89,7 +89,7 @@ const Navbar = () => {
             </Typography>
           </Link>
           <Link
-            href="/"
+            href="/wishlist"
             style={{
               display: "flex",
               alignItems: "center",

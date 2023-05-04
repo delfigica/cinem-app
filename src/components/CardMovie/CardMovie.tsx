@@ -1,3 +1,10 @@
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { addId } from "@/store";
+import { removeId } from "@/store";
+import Link from "next/link";
+
 import {
   Box,
   Card,
@@ -9,12 +16,24 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Link from "next/link";
+
 
 export const CardMovie = ({ data }: any) => {
+  
   const theme = useTheme();
-
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
+
+  const dispatch = useDispatch();
+
+  const wishListState = useSelector((state: RootState) => state.WishList);
+
+  const handlerFavorites = (id: string) => {
+    if (wishListState.movies_ids.includes(id)) {
+      dispatch(removeId(id));
+    } else {
+      dispatch(addId(id));
+    }
+  };
 
   return (
     <Card
@@ -46,8 +65,16 @@ export const CardMovie = ({ data }: any) => {
               }
         }
       >
-        <IconButton>
-          <FavoriteBorderIcon color="secondary" sx={{ fontSize: "1.2em" }} />
+        <IconButton
+          onClick={() => {
+            handlerFavorites(data.id);
+          }}
+        >
+          {wishListState.movies_ids.includes(data.id) ? (
+            <FavoriteIcon color="secondary" sx={{ fontSize: "1.2em" }} />
+          ) : (
+            <FavoriteBorderIcon color="secondary" sx={{ fontSize: "1.2em" }} />
+          )}
         </IconButton>
         <Link href={"/movies/" + data.id}>
           <Button

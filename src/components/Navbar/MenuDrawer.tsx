@@ -95,7 +95,7 @@ const MenuDrawer = () => {
             </Link>
 
             <Link
-              href="/"
+              href="/wishlist"
               style={{
                 display: "flex",
                 alignItems: "center",
