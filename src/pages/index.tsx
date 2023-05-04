@@ -14,7 +14,14 @@ import { CardMovie } from "@/components/CardMovie/CardMovie";
 import { SkeletonCard } from "@/components/Skeleton/SkeletonCard";
 
 export default function Home() {
+  interface principalMovie {
+    backdrop_path: string;
+  }
+
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
+  const [principalMovie, setprincipalMovie] = useState<principalMovie>({
+    backdrop_path: "",
+  });
 
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +33,9 @@ export default function Home() {
         `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-MX&page=1`
       )
       .then((res) => {
-        setPopularMovies(res.data.results.slice(0, 3));
+        setprincipalMovie(res.data.results[0]);
+        setPopularMovies(res.data.results.slice(1, 5));
+        console.log(res.data.results);
         setLoading(false);
       })
       .catch((err) => {
@@ -34,6 +43,7 @@ export default function Home() {
       });
   }, []);
 
+  console.log("principalMovie: ", principalMovie);
   const theme = useTheme();
 
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
@@ -44,14 +54,19 @@ export default function Home() {
         sx={
           laptop
             ? {
-                background: "linear-gradient(to right, #3CCE88, #002C65)",
+                backgroundImage: `url( https://image.tmdb.org/t/p/original${principalMovie?.backdrop_path})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "100vw",
                 borderRadius: "0px 0px 0px 100px",
-                height: "70vh",
+                height: "80vh",
                 display: "grid",
                 placeItems: "center",
               }
             : {
-                background: "linear-gradient(to right, #3CCE88, #002C65)",
+                backgroundImage: `url( https://image.tmdb.org/t/p/w500${principalMovie?.backdrop_path})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
                 borderRadius: "0px 0px 0px 30px",
                 textAlign: "center",
                 height: "40vh",
@@ -60,15 +75,30 @@ export default function Home() {
               }
         }
       >
-        <Typography
-          sx={
-            laptop
-              ? { color: "white", fontSize: "3em" }
-              : { fontSize: "2em", color: "white", textAling: "center" }
-          }
+        <Box
+          sx={{
+            backgroundColor: "rgba(223, 223, 223, 0.38)",
+            width: "100%",
+            height: "100%",
+            display: "grid",
+            placeItems: "center",
+          }}
         >
-          Descubre las películas en tendencia
-        </Typography>
+          <Typography
+            sx={
+              laptop
+                ? {
+                    color: "rgba(46, 43, 43, 1)",
+                    fontSize: "3em",
+                    fontWeight: "600",
+                    textAlign: "center",
+                  }
+                : { fontSize: "1.5em", textAling: "center", color: "rgba(46, 43, 43, 1)", fontWeight: "600",}
+            }
+          >
+            Descubre las películas en tendencia
+          </Typography>
+        </Box>
       </Box>
       <Box
         sx={
