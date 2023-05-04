@@ -3,7 +3,7 @@
 ### Challenge Frontend para Cocos Capital
 Desarrollar una aplicación web para mostrar información de películas utilizando la API de The Movie DB (https://www.themoviedb.org/documentation/api)
 
-### Live version:
+### Live version: https://cocos-movies-nynsw.ondigitalocean.app/
 
 ### Funcionalidades:
 - [ ] Página de inicio que muestre las películas más populares del momento.
