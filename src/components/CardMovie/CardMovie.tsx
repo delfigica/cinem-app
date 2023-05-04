@@ -17,9 +17,7 @@ import {
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-
 export const CardMovie = ({ data }: any) => {
-  
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
@@ -39,7 +37,7 @@ export const CardMovie = ({ data }: any) => {
     <Card
       sx={
         laptop
-          ? { width: "330px", height: "500px", margin: "15px" }
+          ? { width: "280px", height: "440px", margin: "15px" }
           : { widht: "250px", height: "550px", margin: "10px" }
       }
     >
@@ -51,8 +49,8 @@ export const CardMovie = ({ data }: any) => {
                 justifyContent: "space-evenly",
                 alignItems: "center",
                 background: "rgba(223, 223, 223, 0.38)",
-                width: "330px",
-                height: "500px",
+                width: "280px",
+                height: "440px",
                 position: "absolute",
                 cursor: "pointer",
                 //   visibility: "collapse",
@@ -100,16 +98,29 @@ export const CardMovie = ({ data }: any) => {
             height: "50px",
           }}
         >
-          <IconButton>
-            <FavoriteBorderIcon color="secondary" sx={{ fontSize: "1.2em" }} />
-          </IconButton>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ fontWeight: "600" }}
+          <IconButton
+            onClick={() => {
+              handlerFavorites(data.id);
+            }}
           >
-            Ver detalle
-          </Button>
+            {wishListState.movies_ids.includes(data.id) ? (
+              <FavoriteIcon color="secondary" sx={{ fontSize: "1.2em" }} />
+            ) : (
+              <FavoriteBorderIcon
+                color="secondary"
+                sx={{ fontSize: "1.2em" }}
+              />
+            )}
+          </IconButton>
+          <Link href={"/movies/" + data.id}>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ fontWeight: "600" }}
+            >
+              Ver detalle
+            </Button>
+          </Link>
         </Box>
       )}
     </Card>
