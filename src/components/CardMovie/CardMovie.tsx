@@ -13,16 +13,15 @@ export const CardMovie = ({ data }: any) => {
           laptop
             ? {
                 width: "280px",
-                height: "440px",
                 margin: "15px",
                 cursor: "pointer",
               }
-            : { widht: "250px", height: "550px", margin: "10px" }
+            : { widht: "250px", margin: "10px" }
         }
       >
         <CardMedia
           image={"https://image.tmdb.org/t/p/w500" + data.poster_path}
-          sx={{ backgroundSize: "contained", width: "100%", height: "500px" }}
+          sx={{ backgroundSize: "contained", width: "100%" }}
           component="img"
         />
       </Card>

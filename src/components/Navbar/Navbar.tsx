@@ -1,33 +1,39 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import MenuDrawer from "./MenuDrawer";
 
 import {
   Box,
   Typography,
   TextField,
   InputAdornment,
-  IconButton,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import MenuDrawer from "./MenuDrawer";
 
 const Navbar = () => {
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<any>("");
 
   const router = useRouter();
+  const { query } = router.query;
 
   const handleChangeSearch = (e: any) => {
+    e.preventDefault();
+    setSearch(e.target.value);
     let query = e.target.value.replace(/ /g, "%20");
     router.push("/search?query=" + query);
-    setSearch(e.target.value);
   };
+
+  useEffect(() => {
+    if (query) {
+      setSearch(query);
+    }
+  }, []);
 
   return (
     <Box
@@ -77,7 +83,10 @@ const Navbar = () => {
             onChange={handleChangeSearch}
           />
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Link href="/movies" style={{ textDecoration: "none", marginRight: '1rem' }}>
+            <Link
+              href="/movies"
+              style={{ textDecoration: "none", marginRight: "1rem" }}
+            >
               <Typography color="secondary" sx={{ fontWeight: "600" }}>
                 {" "}
                 Películas
