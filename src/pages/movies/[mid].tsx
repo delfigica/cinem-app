@@ -91,14 +91,14 @@ const Movie = () => {
         }
       >
         <Box
-          sx={laptop ? { width: "400px" } : { width: "300px", margin: "auto" }}
+          sx={laptop ? { width: "400px" } : { width: "250px", margin: "auto" }}
         >
           {loading ? (
             <Skeleton
               variant="rectangular"
               width={300}
               height={500}
-              sx={{ background: "#3CCE88" }}
+              sx={{ background: "#3CCE88", width: '300px', height: '500px' }}
             />
           ) : (
             <img
@@ -126,7 +126,7 @@ const Movie = () => {
                 sx={
                   laptop
                     ? { fontSize: "2em", marginRight: "10px" }
-                    : { fontSize: "1.8em", textAlign: "center" }
+                    : { fontSize: "1.8em", margin: "0px 10px" }
                 }
               >
                 {movie?.title}
@@ -145,7 +145,7 @@ const Movie = () => {
               name="read-only"
               value={movie?.vote_average / 2}
               readOnly
-              sx={laptop ? {} : { margin: "12px 100px" }}
+              sx={laptop ? {} : { margin: "5px 10px" }}
             />
             <Typography
               sx={
@@ -176,7 +176,7 @@ const Movie = () => {
                   sx={
                     laptop
                       ? { fontWeight: 600, marginRight: "10px" }
-                      : { fontWeight: 600, margin: "10px" }
+                      : { fontWeight: 600, margin: "5px" }
                   }
                   color="secondary"
                 />
@@ -186,12 +186,16 @@ const Movie = () => {
         )}
       </Box>
       <Box
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          width: "80%",
-          margin: "0px auto",
-        }}
+        sx={
+          laptop
+            ? {
+                display: "flex",
+                alignItems: "flex-start",
+                width: "80%",
+                margin: "0px auto",
+              }
+            : {}
+        }
       >
         <FormReview mid={mid} />
         <Reviews mid={mid} />

@@ -87,13 +87,20 @@ export const Reviews = ({ mid }: any) => {
                   width: "100%",
                 }}
               >
-                {reviews.map((review, index) => (
+                {reviews.map((review) => (
                   <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "10px 20px",
-                    }}
+                    sx={
+                      laptop
+                        ? {
+                            display: "flex",
+                            alignItems: "center",
+                            margin: "10px 20px",
+                          }
+                        : {
+                            display: "flex",
+                            margin: "10px 20px",
+                          }
+                    }
                   >
                     <Avatar src="/broken-image.jpg" sx={{ widht: "60px" }} />
                     <Box sx={{ margin: "0px 10px" }}>
