@@ -38,7 +38,6 @@ export default function Home() {
       .then((res) => {
         setprincipalMovie(res.data.results[0]);
         setPopularMovies(res.data.results.slice(1, 5));
-        console.log(res.data.results);
         setLoading(false);
       })
       .catch((err) => {
@@ -46,7 +45,6 @@ export default function Home() {
       });
   }, []);
 
-  console.log("principalMovie: ", principalMovie);
   const theme = useTheme();
 
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));

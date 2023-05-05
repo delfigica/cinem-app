@@ -1,8 +1,5 @@
 import { AnyAction, combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { type } from "os";
-import { stringify } from "querystring";
-
 interface WishList {
   movies_ids: string[];
 }
@@ -58,7 +55,6 @@ const reducerWishList = (
       return state;
   }
 };
-
 interface Reviews {
   items: {
     movie_id: string;
@@ -71,17 +67,16 @@ var reviewsStorage;
 if (typeof window !== "undefined") {
   reviewsStorage = localStorage.getItem("reviews");
 }
+
 const reviewsStorageArray = reviewsStorage ? JSON.parse(reviewsStorage) : [];
 
 const initialReviews: Reviews = {
   items: reviewsStorageArray,
 };
-
 interface ReviewItem {
   movie_id: string;
   review: string;
 }
-
 export const addItem = (item: ReviewItem) => ({
   type: "ADD_ITEM",
   payload: {
@@ -120,7 +115,6 @@ const reducerReviews = (state = initialReviews, action: AnyAction): Reviews => {
       return state;
   }
 };
-
 export interface RootState {
   WishList: WishList;
   Reviews: Reviews;
