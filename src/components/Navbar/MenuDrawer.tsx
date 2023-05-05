@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import {
   Drawer,
@@ -12,21 +13,26 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useRouter } from "next/router";
 
 const MenuDrawer = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<any>("");
 
   const router = useRouter();
+  const { query } = router.query;
 
   const handleChangeSearch = (e: any) => {
     let query = e.target.value.replace(/ /g, "%20");
     router.push("/search?query=" + query);
     setSearch(e.target.value);
   };
+
+  useEffect(() => {
+    if (query) {
+      setSearch(query);
+    }
+  }, []);
 
   return (
     <>
