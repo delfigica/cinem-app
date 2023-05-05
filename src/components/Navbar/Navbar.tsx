@@ -38,7 +38,7 @@ const Navbar = () => {
               justifyContent: "space-between",
               alignItems: "center",
               padding: "1em 3em",
-              boxShadow: '0px 10px 59px -29px rgba(0,0,0,0.75)'
+              boxShadow: "0px 10px 59px -29px rgba(0,0,0,0.75)",
             }
           : {
               display: "flex",
@@ -49,23 +49,16 @@ const Navbar = () => {
       }
     >
       <Link href="/" className="Link">
-        <Typography
-          color="primary"
-          sx={
-            laptop
-              ? { fontSize: "2em", fontWeight: 600, cursor: "pointer" }
-              : { fontSize: "1.5em", fontWeight: 600 }
-          }
-        >
-          CocosMovies
-        </Typography>
+        <Box sx={{ width: "140px" }}>
+          <img src="/logo.png" alt="cocos movies" />
+        </Box>
       </Link>
       {laptop ? (
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
             width: "70%",
           }}
         >
@@ -83,27 +76,29 @@ const Navbar = () => {
             value={search}
             onChange={handleChangeSearch}
           />
-          <Link href="/movies" style={{ textDecoration: "none" }}>
-            <Typography color="secondary" sx={{ fontWeight: "600" }}>
-              {" "}
-              Películas
-            </Typography>
-          </Link>
-          <Link
-            href="/wishlist"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              textDecoration: "none",
-            }}
-          >
-            <Typography color="secondary" sx={{ fontWeight: 600 }}>
-              Favoritos
-            </Typography>
-            <IconButton color="secondary">
-              <FavoriteIcon />
-            </IconButton>
-          </Link>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Link href="/movies" style={{ textDecoration: "none", marginRight: '1rem' }}>
+              <Typography color="secondary" sx={{ fontWeight: "600" }}>
+                {" "}
+                Películas
+              </Typography>
+            </Link>
+            <Link
+              href="/wishlist"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+              }}
+            >
+              <Typography color="secondary" sx={{ fontWeight: 600 }}>
+                Favoritos
+              </Typography>
+              <IconButton color="secondary">
+                <FavoriteIcon />
+              </IconButton>
+            </Link>
+          </Box>
         </Box>
       ) : (
         <MenuDrawer />
