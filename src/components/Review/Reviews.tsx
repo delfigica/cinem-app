@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/index";
+import { FormReview } from "@/components/Review/FormReview";
 
 import {
   Box,
@@ -41,8 +42,13 @@ export const Reviews = ({ mid }: any) => {
     let thisMovieReviews = reviewsState.items?.filter(
       (review: any) => review.movie_id == mid
     );
-    setReviews((prev) => {
-      return prev.concat(thisMovieReviews);
+    const arrayWithRepeated = reviews.concat(thisMovieReviews);
+    const arrayWithOutRepeated = arrayWithRepeated.filter(
+      (review, index, array) =>
+        array.findIndex((e) => e.review === review.review) === index
+    );
+    setReviews(() => {
+      return arrayWithOutRepeated;
     });
   }, [reviewsState]);
 
@@ -58,49 +64,40 @@ export const Reviews = ({ mid }: any) => {
             laptop
               ? {
                   background: "#3CCE88",
-                  width: "500px",
-                  height: "200px",
+                  width: "100%",
+                  maxHeight: "200px",
                 }
               : {
                   background: "#3CCE88",
-                  width: "300px",
-                  height: "300px",
+                  width: "100%",
+                  maxHeight: "300px",
                   margin: "10px auto",
                 }
           }
         />
       ) : (
-        <Box
-          sx={{
-            margin: "0 20px",
-          }}
-        >
+        <Box sx={{ paddingBottom: "1rem" }}>
           <Typography sx={{ fontSize: "1.2em" }}>Comentarios</Typography>
+          <FormReview mid={mid} />
+
           <Box>
             {reviews.length > 0 ? (
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column-reverse",
-                  height: "400px",
+                  maxHeight: "400px",
                   overflowY: "scroll",
                   width: "100%",
                 }}
               >
                 {reviews.map((review) => (
                   <Box
-                    sx={
-                      laptop
-                        ? {
-                            display: "flex",
-                            alignItems: "center",
-                            margin: "10px 20px",
-                          }
-                        : {
-                            display: "flex",
-                            margin: "10px 20px",
-                          }
-                    }
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: "1rem",
+                    }}
                   >
                     <Avatar src="/broken-image.jpg" sx={{ widht: "60px" }} />
                     <Box sx={{ margin: "0px 10px" }}>

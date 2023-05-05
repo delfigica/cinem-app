@@ -6,7 +6,6 @@ import { RootState, addId, removeId } from "@/store";
 import { useEffect, useState } from "react";
 import { Container } from "@/components/Layout/Container";
 import { Reviews } from "@/components/Review/Reviews";
-import { FormReview } from "@/components/Review/FormReview";
 
 import {
   Box,
@@ -87,7 +86,9 @@ const Movie = () => {
                 justifyContent: "center",
                 margin: "20px 0px",
               }
-            : {}
+            : {
+                padding: "0 1rem",
+              }
         }
       >
         <Box
@@ -98,7 +99,7 @@ const Movie = () => {
               variant="rectangular"
               width={300}
               height={500}
-              sx={{ background: "#3CCE88", width: '300px', height: '500px' }}
+              sx={{ background: "#3CCE88", width: "300px", height: "500px" }}
             />
           ) : (
             <img
@@ -112,21 +113,21 @@ const Movie = () => {
             variant="rectangular"
             width={300}
             height={500}
-            sx={
-              laptop
-                ? { background: "#3CCE88" }
-                : { background: "#3CCE88", margin: "10px auto" }
-            }
+            sx={laptop ? { background: "#3CCE88" } : { background: "#3CCE88" }}
           />
         ) : (
-          <Box sx={laptop ? { width: "50%", padding: "0 3em" } : {}}>
+          <Box sx={laptop ? { width: "50%", padding: "0 2rem" } : {}}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography
                 color="secondary"
                 sx={
                   laptop
                     ? { fontSize: "2em", marginRight: "10px" }
-                    : { fontSize: "1.8em", margin: "0px 10px" }
+                    : {
+                        fontSize: "1.8em",
+                        lineHeight: "1em",
+                        marginTop: "1rem",
+                      }
                 }
               >
                 {movie?.title}
@@ -145,60 +146,26 @@ const Movie = () => {
               name="read-only"
               value={movie?.vote_average / 2}
               readOnly
-              sx={laptop ? {} : { margin: "5px 10px" }}
+              sx={laptop ? {} : { padding: "1rem 0" }}
             />
-            <Typography
-              sx={
-                laptop
-                  ? { width: "80%", margin: "10px 0px" }
-                  : { width: "90%", margin: "15px" }
-              }
-            >
-              {movie?.overview}
-            </Typography>
-            <Box
-              sx={
-                laptop
-                  ? {
-                      display: "flex",
-                      width: "80%",
-                    }
-                  : {
-                      display: "flex",
-                      flexWrap: "wrap",
-                    }
-              }
-            >
+            <Typography>{movie?.overview}</Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", marginTop: "1rem" }}>
               {movie?.genres?.map((genre: any) => (
                 <Chip
                   label={genre.name}
                   key={genre.id}
-                  sx={
-                    laptop
-                      ? { fontWeight: 600, marginRight: "10px" }
-                      : { fontWeight: 600, margin: "5px" }
-                  }
+                  sx={{
+                    fontWeight: 600,
+                    marginRight: "10px",
+                    marginBottom: "10px",
+                  }}
                   color="secondary"
                 />
               ))}
             </Box>
+            <Reviews mid={mid} />
           </Box>
         )}
-      </Box>
-      <Box
-        sx={
-          laptop
-            ? {
-                display: "flex",
-                alignItems: "flex-start",
-                width: "80%",
-                margin: "0px auto",
-              }
-            : {}
-        }
-      >
-        <FormReview mid={mid} />
-        <Reviews mid={mid} />
       </Box>
     </Container>
   );

@@ -1,8 +1,19 @@
 import { useDispatch } from "react-redux";
 import { addItem } from "../../store/index";
-import { Box, Button, TextField, useTheme, useMediaQuery, Typography } from "@mui/material";
 import { useState } from "react";
 
+import {
+  Box,
+  Button,
+  TextField,
+  useTheme,
+  useMediaQuery,
+  Typography,
+  Avatar,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 export const FormReview = ({ mid }: any) => {
   const dispatch = useDispatch();
 
@@ -28,42 +39,26 @@ export const FormReview = ({ mid }: any) => {
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
   return (
     <Box
-      sx={
-        laptop
-          ? {
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              width: "40%",
-              margin: "0px 20px",
-            }
-          : {
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-              width: "80%",
-              margin: "auto",
-            }
-      }
+      sx={{
+        display: "flex",
+        margin: "10px 0px",
+      }}
     >
-      <Typography sx={{ margin: '10px 0px'}}>Agregar comentario</Typography>
-      <TextField
-        placeholder="Escribe un comentario"
-        multiline
-        maxRows={4}
-        sx={{ width: "100%" }}
-        rows={4}
-        value={review}
-        onChange={handleChange}
-      />
-      <Button
-        variant="contained"
-        sx={{ fontWeight: 600, margin: "25px 0px", width: "100%" }}
-        onClick={handleSubmit}
-      >
-        Agregar
-      </Button>
+      <Avatar src="/broken-image.jpg" sx={{ widht: "60px" }} />
+      <form onSubmit={handleSubmit}>
+        <TextField
+          placeholder="Escribe un comentario"
+          multiline
+          maxRows={4}
+          sx={laptop ? { width: "400px", margin: "0px 10px" } : {margin: "0px 10px"}}
+          variant="standard"
+          value={review}
+          onChange={handleChange}
+        />
+        <IconButton type="submit">
+          <SendIcon />
+        </IconButton>
+      </form>
     </Box>
   );
 };
