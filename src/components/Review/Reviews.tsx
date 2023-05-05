@@ -60,7 +60,6 @@ export const Reviews = ({ mid }: any) => {
                   background: "#3CCE88",
                   width: "500px",
                   height: "200px",
-                  margin: " 20px 160px",
                 }
               : {
                   background: "#3CCE88",
@@ -73,18 +72,21 @@ export const Reviews = ({ mid }: any) => {
       ) : (
         <Box
           sx={{
-            width: "80%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            margin: "auto",
-            padding: "1em",
+            margin: "0 20px",
           }}
         >
           <Typography sx={{ fontSize: "1.2em" }}>Comentarios</Typography>
           <Box>
             {reviews.length > 0 ? (
-              <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column-reverse",
+                  height: "400px",
+                  overflowY: "scroll",
+                  width: "100%",
+                }}
+              >
                 {reviews.map((review, index) => (
                   <Box
                     sx={{

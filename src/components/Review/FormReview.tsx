@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addItem } from "../../store/index";
-import { Box, Button, TextField, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Button, TextField, useTheme, useMediaQuery, Typography } from "@mui/material";
 import { useState } from "react";
 
 export const FormReview = ({ mid }: any) => {
@@ -13,12 +13,15 @@ export const FormReview = ({ mid }: any) => {
   };
 
   const handleSubmit = (e: any) => {
-    let newReview = {
-      movie_id: mid,
-      review: review,
-    };
-    dispatch(addItem(newReview));
-    setReview("");
+    e.preventDefault();
+    if (review.length > 0) {
+      let newReview = {
+        movie_id: mid,
+        review: review,
+      };
+      dispatch(addItem(newReview));
+      setReview("");
+    }
   };
 
   const theme = useTheme();
@@ -31,8 +34,8 @@ export const FormReview = ({ mid }: any) => {
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
-              alignItems: "center",
-              width: "80%",
+              width: "40%",
+              margin: "0px 20px",
             }
           : {
               display: "flex",
@@ -44,8 +47,9 @@ export const FormReview = ({ mid }: any) => {
             }
       }
     >
+      <Typography sx={{ margin: '10px 0px'}}>Agregar comentario</Typography>
       <TextField
-        label="Escribe un comentario"
+        placeholder="Escribe un comentario"
         multiline
         maxRows={4}
         sx={{ width: "100%" }}
@@ -58,7 +62,7 @@ export const FormReview = ({ mid }: any) => {
         sx={{ fontWeight: 600, margin: "25px 0px", width: "100%" }}
         onClick={handleSubmit}
       >
-        Añadir
+        Agregar
       </Button>
     </Box>
   );

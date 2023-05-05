@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { RootState, addId } from "@/store";
+import { RootState, addId, removeId } from "@/store";
 import { useEffect, useState } from "react";
 import { Container } from "@/components/Layout/Container";
 import { Reviews } from "@/components/Review/Reviews";
@@ -11,13 +11,15 @@ import { FormReview } from "@/components/Review/FormReview";
 import {
   Box,
   Typography,
-  Button,
   Chip,
   Rating,
   useTheme,
   useMediaQuery,
   Skeleton,
+  IconButton,
 } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Movie = () => {
   interface Movie {
@@ -63,14 +65,12 @@ const Movie = () => {
   const wishListState = useSelector((state: RootState) => state.WishList);
 
   const handlerFavorites = (id: string) => {
-    dispatch(addId(id));
+    if (wishListState.movies_ids.includes(id)) {
+      dispatch(removeId(id));
+    } else {
+      dispatch(addId(id));
+    }
   };
-
-  const [isInFavorites, setIsInFavorites] = useState(false);
-
-  useEffect(() => {
-    setIsInFavorites(wishListState.movies_ids.some((id: any) => id == mid));
-  }, [wishListState]);
 
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
@@ -81,7 +81,12 @@ const Movie = () => {
       <Box
         sx={
           laptop
-            ? { padding: "1em 3em", display: "flex", justifyContent: "center" }
+            ? {
+                padding: "1em 3em",
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }
             : {}
         }
       >
@@ -115,23 +120,33 @@ const Movie = () => {
           />
         ) : (
           <Box sx={laptop ? { width: "50%", padding: "0 3em" } : {}}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography
+                color="secondary"
+                sx={
+                  laptop
+                    ? { fontSize: "2em", marginRight: "10px" }
+                    : { fontSize: "1.8em", textAlign: "center" }
+                }
+              >
+                {movie?.title}
+              </Typography>
+              <IconButton onClick={() => handlerFavorites(movie.id)}>
+                {wishListState.movies_ids.includes(movie.id) ? (
+                  <FavoriteIcon sx={{ color: "red", fontSize: "1.3em" }} />
+                ) : (
+                  <FavoriteBorderIcon
+                    sx={{ color: "red", fontSize: "1.3em" }}
+                  />
+                )}
+              </IconButton>
+            </Box>
             <Rating
               name="read-only"
               value={movie?.vote_average / 2}
               readOnly
               sx={laptop ? {} : { margin: "12px 100px" }}
             />
-
-            <Typography
-              color="primary"
-              sx={
-                laptop
-                  ? { fontSize: "2em" }
-                  : { fontSize: "1.8em", textAlign: "center" }
-              }
-            >
-              {movie?.title}
-            </Typography>
             <Typography
               sx={
                 laptop
@@ -146,7 +161,6 @@ const Movie = () => {
                 laptop
                   ? {
                       display: "flex",
-                      justifyContent: "space-between",
                       width: "80%",
                     }
                   : {
@@ -161,39 +175,27 @@ const Movie = () => {
                   key={genre.id}
                   sx={
                     laptop
-                      ? { fontWeight: 600 }
+                      ? { fontWeight: 600, marginRight: "10px" }
                       : { fontWeight: 600, margin: "10px" }
                   }
                   color="secondary"
                 />
               ))}
             </Box>
-            <Box
-              sx={
-                laptop
-                  ? { display: "flex", justifyContent: "center", width: "80%" }
-                  : {
-                      display: "flex",
-                      justifyContent: "center",
-                      width: "80%",
-                      margin: "auto",
-                    }
-              }
-            >
-              <Button
-                variant="contained"
-                sx={{ fontWeight: 600, margin: "25px 0px", width: "350px" }}
-                onClick={() => handlerFavorites(movie.id)}
-                disabled={isInFavorites}
-              >
-                Añadir a favoritos
-              </Button>
-            </Box>
-            <FormReview mid={mid} />
           </Box>
         )}
       </Box>
-      <Reviews mid={mid} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "flex-start",
+          width: "80%",
+          margin: "0px auto",
+        }}
+      >
+        <FormReview mid={mid} />
+        <Reviews mid={mid} />
+      </Box>
     </Container>
   );
 };
