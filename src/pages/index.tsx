@@ -151,11 +151,12 @@ export default function Home() {
         <Link href="/movies">
           <Button
             variant="contained"
-            sx={
-              laptop
-                ? { width: "350px", fontWeight: 600 }
-                : { width: "250px", fontWeight: 600 }
-            }
+            sx={{
+              fontWeight: 600,
+              padding: "10px 30px",
+              background: "#27CFA4",
+              borderRadius: "50px",
+            }}
           >
             Ver más
           </Button>
