@@ -9,6 +9,7 @@ import {
   Button,
   useTheme,
   useMediaQuery,
+  Chip,
 } from "@mui/material";
 import { CardMovie } from "@/components/CardMovie/CardMovie";
 import { SkeletonCard } from "@/components/Skeleton/SkeletonCard";
@@ -16,11 +17,13 @@ import { SkeletonCard } from "@/components/Skeleton/SkeletonCard";
 export default function Home() {
   interface principalMovie {
     backdrop_path: string;
+    title: string;
   }
 
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
   const [principalMovie, setprincipalMovie] = useState<principalMovie>({
     backdrop_path: "",
+    title: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -59,7 +62,7 @@ export default function Home() {
                 backgroundPosition: "center",
                 backgroundSize: "100vw",
                 borderRadius: "0px 0px 0px 100px",
-                height: "80vh",
+                height: "70vh",
                 display: "grid",
                 placeItems: "center",
               }
@@ -67,9 +70,10 @@ export default function Home() {
                 backgroundImage: `url( https://image.tmdb.org/t/p/w500${principalMovie?.backdrop_path})`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
+                backgroundSize: "cover",
                 borderRadius: "0px 0px 0px 30px",
                 textAlign: "center",
-                height: "40vh",
+                height: "50vh",
                 display: "grid",
                 placeItems: "center",
               }
@@ -77,27 +81,44 @@ export default function Home() {
       >
         <Box
           sx={{
-            backgroundColor: "rgba(223, 223, 223, 0.38)",
             width: "100%",
             height: "100%",
             display: "grid",
             placeItems: "center",
           }}
         >
-          <Typography
-            sx={
-              laptop
-                ? {
-                    color: "rgba(46, 43, 43, 1)",
-                    fontSize: "3em",
-                    fontWeight: "600",
-                    textAlign: "center",
-                  }
-                : { fontSize: "1.5em", textAling: "center", color: "rgba(46, 43, 43, 1)", fontWeight: "600",}
-            }
+          <div
+            style={{
+              textAlign: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.38)",
+              padding: "2rem",
+            }}
           >
-            Descubre las películas en tendencia
-          </Typography>
+            <Chip
+              label="Estrenos más populares"
+              color="primary"
+              sx={{ color: "black", fontWeight: 600 }}
+            />
+            <Typography
+              sx={
+                laptop
+                  ? {
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: "3em",
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }
+                  : {
+                      fontSize: "1.5em",
+                      textAling: "center",
+                      color: "rgba(255, 255, 255, 1)",
+                      fontWeight: "600",
+                    }
+              }
+            >
+              {principalMovie?.title}
+            </Typography>
+          </div>
         </Box>
       </Box>
       <Box
