@@ -1,37 +1,10 @@
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
-import { addId } from "@/store";
-import { removeId } from "@/store";
 import Link from "next/link";
 
-import {
-  Box,
-  Card,
-  CardMedia,
-  Button,
-  IconButton,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Card, CardMedia, useTheme, useMediaQuery } from "@mui/material";
 
 export const CardMovie = ({ data }: any) => {
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
-
-  const dispatch = useDispatch();
-
-  const wishListState = useSelector((state: RootState) => state.WishList);
-
-  const handlerFavorites = (id: string) => {
-    if (wishListState.movies_ids.includes(id)) {
-      dispatch(removeId(id));
-    } else {
-      dispatch(addId(id));
-    }
-  };
 
   return (
     <Link href={"/movies/" + data.id}>
