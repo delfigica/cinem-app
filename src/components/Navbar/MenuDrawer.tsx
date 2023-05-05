@@ -105,9 +105,6 @@ const MenuDrawer = () => {
               <Typography color="secondary" sx={{ fontWeight: 600 }}>
                 Favoritos
               </Typography>
-              <IconButton color="secondary">
-                <FavoriteIcon />
-              </IconButton>
             </Link>
           </Box>
         </Box>
