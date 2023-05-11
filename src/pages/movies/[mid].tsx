@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState, addId, removeId } from "@/store";
 import { useEffect, useState } from "react";
-import { Container } from "@/components/Layout/Container";
 import { Reviews } from "@/components/Review/Reviews";
 
 import {
@@ -76,7 +75,7 @@ const Movie = () => {
 
   const [loading, setLoading] = useState(true);
   return (
-    <Container>
+    <>
       <Box
         sx={
           laptop
@@ -167,7 +166,7 @@ const Movie = () => {
           </Box>
         )}
       </Box>
-    </Container>
+    </>
   );
 };
 

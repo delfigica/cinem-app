@@ -1,7 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Container } from "@/components/Layout/Container";
 
 import {
   Box,
@@ -50,7 +49,7 @@ export default function Home() {
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (
-    <Container>
+    <>
       <Box
         sx={
           laptop
@@ -162,6 +161,6 @@ export default function Home() {
           </Button>
         </Link>
       </Box>
-    </Container>
+    </>
   );
 }

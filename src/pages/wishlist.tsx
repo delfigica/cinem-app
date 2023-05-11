@@ -1,4 +1,3 @@
-import { Container } from "@/components/Layout/Container";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -36,33 +35,31 @@ const WishList = () => {
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (
-    <Container>
-      <Box
-        sx={
-          laptop
-            ? {
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-evenly",
-                padding: "1em 3em",
-              }
-            : {
-                padding: "1em 0",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-              }
-        }
-      >
-        {list.length > 0 ? (
-          list.map((movie: any) => <CardMovie data={movie} key={movie.id} />)
-        ) : (
-          <Typography sx={{ textAlign: "center", fontSize: '2em' }}>
-            Aún no tiene peliculas en favoritos
-          </Typography>
-        )}
-      </Box>
-    </Container>
+    <Box
+      sx={
+        laptop
+          ? {
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-evenly",
+              padding: "1em 3em",
+            }
+          : {
+              padding: "1em 0",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            }
+      }
+    >
+      {list.length > 0 ? (
+        list.map((movie: any) => <CardMovie data={movie} key={movie.id} />)
+      ) : (
+        <Typography sx={{ textAlign: "center", fontSize: "2em" }}>
+          Aún no tiene peliculas en favoritos
+        </Typography>
+      )}
+    </Box>
   );
 };
 

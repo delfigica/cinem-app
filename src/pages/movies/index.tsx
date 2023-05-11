@@ -1,11 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Container } from "@/components/Layout/Container";
 
 import {
   Box,
-  Typography,
-  Button,
   Pagination,
   useTheme,
   useMediaQuery,
@@ -50,7 +47,7 @@ export default function Movies() {
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (
-    <Container>
+    <>
       <Box
         sx={
           laptop
@@ -95,6 +92,6 @@ export default function Movies() {
           sx={laptop ? {} : { width: "300px" }}
         />
       </Box>
-    </Container>
+    </>
   );
 }
