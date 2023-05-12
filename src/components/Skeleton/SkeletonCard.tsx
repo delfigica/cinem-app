@@ -7,12 +7,11 @@ export const SkeletonCard = () => {
   return (
     <Skeleton
       variant="rectangular"
-      width={300}
       height={500}
       sx={
         laptop
-          ? { backgroundColor: "#3CCE88", margin: "15px" }
-          : { backgroundColor: "#3CCE88", margin: "15px 5px" }
+          ? { backgroundColor: "#3CCE88", margin: "15px", width: '280px'}
+          : { backgroundColor: "#3CCE88", margin: "10px auto", width: '90%' }
       }
     />
   );

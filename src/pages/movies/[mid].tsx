@@ -44,7 +44,7 @@ const Movie = () => {
     vote_average: 0,
   });
   const [loading, setLoading] = useState(true);
-  
+
   //Request from services
   useEffect(() => {
     getAMovie(mid).then((res) => {
@@ -91,9 +91,15 @@ const Movie = () => {
           {loading ? (
             <Skeleton
               variant="rectangular"
-              width={300}
-              height={500}
-              sx={{ background: "#3CCE88", width: "300px", height: "500px" }}
+              sx={laptop ? {
+                background: "#3CCE88",
+                width: "100%",
+                height: "500px",
+              } : {
+                background: "#3CCE88",
+                width: "100%",
+                height: "400px",
+              } }
             />
           ) : (
             <img
@@ -105,9 +111,8 @@ const Movie = () => {
         {loading ? (
           <Skeleton
             variant="rectangular"
-            width={300}
             height={500}
-            sx={laptop ? { background: "#3CCE88" } : { background: "#3CCE88" }}
+            sx={laptop ? { background: "#3CCE88", margin: '0px 20px', width: '600px' } : { background: "#3CCE88", width: '300px', margin: '20px auto' }}
           />
         ) : (
           <Box sx={laptop ? { width: "50%", padding: "0 2rem" } : {}}>

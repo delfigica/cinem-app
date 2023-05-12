@@ -54,7 +54,7 @@ export default function Movies() {
       >
         {loading ? (
           <>
-            <SkeletonCard /> <SkeletonCard /> <SkeletonCard />
+            <SkeletonCard /> <SkeletonCard /> <SkeletonCard /> <SkeletonCard />
           </>
         ) : (
           popularMovies?.map((movie: any) => (

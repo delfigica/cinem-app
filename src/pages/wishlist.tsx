@@ -4,13 +4,20 @@ import { useEffect, useState } from "react";
 import { getAMovie } from "@/services/moviesData";
 import { CardMovie } from "@/components/CardMovie/CardMovie";
 
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme,
+  useMediaQuery,
+  CircularProgress,
+} from "@mui/material";
 
 const WishList = () => {
-  //Initial state
+  //Initial states
   const [list, setList] = useState<any[]>([]);
-  
-    //Managment of global state "WishList"
+  const [loading, setLoading] = useState(true);
+
+  //Managment of global state "WishList"
   const wishListState = useSelector((state: RootState) => state.WishList);
 
   //Request from services
@@ -22,40 +29,47 @@ const WishList = () => {
         });
       });
     });
+    setLoading(false)
   }, []);
 
   //To handler responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
-  console.log('wishListState: ', wishListState)
-
   return (
-    <Box
-      sx={
-        laptop
-          ? {
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-evenly",
-              padding: "1em 3em",
-            }
-          : {
-              padding: "1em 0",
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }
-      }
-    >
-      {list?.length > 0 ? (
-        list.map((movie: any) => <CardMovie data={movie} key={movie?.id} />)
+    <>
+      {loading ? (
+        <Box sx={{ display: "grid", placeItems: "center", height: "20vh" }}>
+          <CircularProgress color="secondary" />
+        </Box>
       ) : (
-        <Typography sx={{ textAlign: "center", fontSize: "2em" }}>
-          Aún no tiene peliculas en favoritos
-        </Typography>
+        <Box
+          sx={
+            laptop
+              ? {
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-evenly",
+                  padding: "1em 3em",
+                }
+              : {
+                  padding: "1em 0",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                }
+          }
+        >
+          {list.length > 0 ? (
+            list.map((movie: any) => <CardMovie data={movie} key={movie.id} />)
+          ) : (
+            <Typography sx={{ textAlign: "center", fontSize: "2em" }}>
+              Aún no tiene peliculas en favoritos
+            </Typography>
+          )}
+        </Box>
       )}
-    </Box>
+    </>
   );
 };
 
