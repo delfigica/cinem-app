@@ -14,27 +14,29 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 
 const Navbar = () => {
-  const theme = useTheme();
-  const laptop = useMediaQuery(theme.breakpoints.up("lg"));
-
+  //Initial state
   const [search, setSearch] = useState<any>("");
-
+  
+  //Get query from url attributes
   const router = useRouter();
   const { query } = router.query;
-
+  
   const handleChangeSearch = (e: any) => {
     e.preventDefault();
     setSearch(e.target.value);
     let query = e.target.value.replace(/ /g, "%20");
     router.push("/search?query=" + query);
   };
-
+  
   useEffect(() => {
     if (query) {
       setSearch(query);
     }
   }, []);
-
+  
+  //To handler responsive desing
+  const theme = useTheme();
+  const laptop = useMediaQuery(theme.breakpoints.up("lg"));
   return (
     <Box
       sx={
@@ -88,7 +90,6 @@ const Navbar = () => {
               style={{ textDecoration: "none", marginRight: "1rem" }}
             >
               <Typography color="secondary" sx={{ fontWeight: "600" }}>
-                {" "}
                 Películas
               </Typography>
             </Link>

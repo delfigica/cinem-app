@@ -15,10 +15,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 
 const MenuDrawer = () => {
+  //Initial states
   const [openDrawer, setOpenDrawer] = useState(false);
-
   const [search, setSearch] = useState<any>("");
 
+  // Get query from url attributes
   const router = useRouter();
   const { query } = router.query;
 

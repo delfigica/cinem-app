@@ -8,21 +8,20 @@ import {
   TextField,
   useTheme,
   useMediaQuery,
-  Typography,
   Avatar,
-  InputAdornment,
   IconButton,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 export const FormReview = ({ mid }: any) => {
-  const dispatch = useDispatch();
-
+  //Initial state
   const [review, setReview] = useState("");
 
   const handleChange = (e: any) => {
     setReview(e.target.value);
   };
-
+  
+  //Managment of global state review
+  const dispatch = useDispatch();
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (review.length > 0) {
@@ -35,6 +34,7 @@ export const FormReview = ({ mid }: any) => {
     }
   };
 
+  //To handler responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
   return (

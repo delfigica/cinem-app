@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/index";
@@ -14,30 +13,13 @@ import {
 } from "@mui/material";
 
 export const Reviews = ({ mid }: any) => {
+  
+  //Initial states
   const reviewsState = useSelector((state: RootState) => state.Reviews);
-
   const [reviews, setReviews] = useState<any[]>([]);
-
-  const apiKey = process.env.API_KEY;
-
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${mid}/reviews?api_key=${apiKey}&language=es-MX&page=1`
-      )
-      .then((res) => {
-        setReviews((prev) => {
-          return prev.concat(res.data.results);
-        });
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [mid]);
-
+  // Get revies from store
   useEffect(() => {
     let thisMovieReviews = reviewsState.items?.filter(
       (review: any) => review.movie_id == mid
@@ -50,8 +32,10 @@ export const Reviews = ({ mid }: any) => {
     setReviews(() => {
       return arrayWithOutRepeated;
     });
+    setLoading(false)
   }, [reviewsState]);
 
+  //To handler responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 

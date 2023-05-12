@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Card, CardMedia, useTheme, useMediaQuery } from "@mui/material";
 
 export const CardMovie = ({ data }: any) => {
+  //To handler responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 

@@ -1,9 +1,9 @@
 import { Skeleton, useTheme, useMediaQuery } from "@mui/material";
 
 export const SkeletonCard = () => {
+  //to handler responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
-
   return (
     <Skeleton
       variant="rectangular"
