@@ -1,36 +1,30 @@
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { getAMovie } from "@/services/moviesData";
 import { CardMovie } from "@/components/CardMovie/CardMovie";
 
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+
 const WishList = () => {
+  //Initial state
+  const [list, setList] = useState<any[]>([]);
+  
+    //Managment of global state "WishList"
   const wishListState = useSelector((state: RootState) => state.WishList);
 
-  console.log(wishListState.movies_ids);
-
-  const [list, setList] = useState<any[]>([]);
-
-  const apiKey = process.env.API_KEY;
-
+  //Request from services
   useEffect(() => {
     wishListState.movies_ids.forEach((movieId: any) => {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=es-MX`
-        )
-        .then((res: any) => {
-          setList((prev) => {
-            return [...prev, res.data];
-          });
-        })
-        .catch((err) => {
-          console.log(err);
+      getAMovie(movieId).then((res: any) => {
+        setList((prev) => {
+          return [...prev, res.data];
         });
+      });
     });
   }, []);
 
+  //To handler responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 

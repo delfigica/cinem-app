@@ -1,52 +1,42 @@
-import axios from "axios";
 import { useRouter } from "next/router";
-
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CardMovie } from "@/components/CardMovie/CardMovie";
+import {
+  getDataMoviesByQuery,
+  getDataPopularMovies,
+} from "@/services/moviesData";
 
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 const Search = () => {
-  const apiKey = process.env.API_KEY;
-
+  // Get query from url attributes
   const router = useRouter();
   const { query } = router.query;
 
+  //Inital state
   const [searchResult, setSearchResult] = useState<any[]>([]);
 
+  //Requests from services
   useEffect(() => {
     if (query) {
-      axios
-        .get(
-          `
-        https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=es-MX&query=${query}`
-        )
-        .then((res) => {
-          setSearchResult(res.data.results);
-        })
-        .catch((err) => {
-          console.log(err);
-
-        });
+      getDataMoviesByQuery(query).then((res) => {
+        setSearchResult(res);
+      });
     } else {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-MX&page=1`
-        )
-        .then((res) => {
-          setSearchResult(res.data.results);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      getDataPopularMovies(1).then((res) => {
+        setSearchResult(res);
+      });
     }
   }, [query]);
 
+  //To handler responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (
     <>
-      <Typography sx={{ textAlign: "center", fontSize: "1.5em", marginTop: '25px' }}>
+      <Typography
+        sx={{ textAlign: "center", fontSize: "1.5em", marginTop: "25px" }}
+      >
         Resultados de búsqueda para: "{query}"
       </Typography>
       <Box
@@ -66,9 +56,13 @@ const Search = () => {
               }
         }
       >
-        {searchResult.length > 0 ? searchResult.map((movie: any) => (
-          <CardMovie data={movie} key={movie.id} />
-        )) : <Typography>Sin resultados de busqueda</Typography> }
+        {searchResult.length > 0 ? (
+          searchResult.map((movie: any) => (
+            <CardMovie data={movie} key={movie.id} />
+          ))
+        ) : (
+          <Typography>Sin resultados de busqueda</Typography>
+        )}
       </Box>
     </>
   );

@@ -1,36 +1,22 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { getDataPopularMovies } from "@/services/moviesData";
 
-import {
-  Box,
-  Pagination,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
 import { CardMovie } from "@/components/CardMovie/CardMovie";
+import { Box, Pagination, useTheme, useMediaQuery } from "@mui/material";
 import { SkeletonCard } from "@/components/Skeleton/SkeletonCard";
 
 export default function Movies() {
+  //Initial states
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
-
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
-  const [loading, setLoading] = useState(true);
-
-  const apiKey = process.env.API_KEY;
-
+  //Request from services
   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-MX&page=${page}`
-      )
-      .then((res) => {
-        setPopularMovies(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getDataPopularMovies(page).then((res) => {
+      setPopularMovies(res);
+      setLoading(false);
+    });
   }, [page]);
 
   const handleChangePage = (
@@ -43,6 +29,7 @@ export default function Movies() {
     setLoading(true);
   };
 
+  //To handle responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 

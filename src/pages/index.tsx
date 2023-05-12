@@ -1,6 +1,7 @@
-import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { getDataPopularMovies } from "@/services/moviesData";
+import { CardMovie } from "@/components/CardMovie/CardMovie";
 
 import {
   Box,
@@ -10,42 +11,34 @@ import {
   useMediaQuery,
   Chip,
 } from "@mui/material";
-import { CardMovie } from "@/components/CardMovie/CardMovie";
 import { SkeletonCard } from "@/components/Skeleton/SkeletonCard";
 
 export default function Home() {
+  //Model from object state
   interface principalMovie {
     backdrop_path: string;
     title: string;
   }
 
+  //Inital states
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
   const [principalMovie, setprincipalMovie] = useState<principalMovie>({
     backdrop_path: "",
     title: "",
   });
-
   const [loading, setLoading] = useState(true);
 
-  const apiKey = process.env.API_KEY;
-
+  //Request from services
   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-MX&page=1`
-      )
-      .then((res) => {
-        setprincipalMovie(res.data.results[0]);
-        setPopularMovies(res.data.results.slice(1, 5));
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getDataPopularMovies(1).then((res) => {
+      setprincipalMovie(res[0]);
+      setPopularMovies(res.slice(1, 5));
+      setLoading(false);
+    });
   }, []);
 
+  //To handler responsive desing
   const theme = useTheme();
-
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (

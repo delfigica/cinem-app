@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState, addId, removeId } from "@/store";
 import { useEffect, useState } from "react";
 import { Reviews } from "@/components/Review/Reviews";
+import { getAMovie } from "@/services/moviesData";
 
 import {
   Box,
@@ -20,6 +20,11 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Movie = () => {
+  // Get ID Movie from url attributes
+  const router = useRouter();
+  const { mid } = router.query;
+
+  //Model from object state
   interface Movie {
     id: string;
     title: string;
@@ -29,10 +34,7 @@ const Movie = () => {
     vote_average: number;
   }
 
-  const router = useRouter();
-
-  const { mid } = router.query;
-
+  // Initial states
   const [movie, setMovie] = useState<Movie>({
     id: "",
     title: "",
@@ -41,25 +43,18 @@ const Movie = () => {
     genres: [],
     vote_average: 0,
   });
-
-  const apiKey = process.env.API_KEY;
-
+  const [loading, setLoading] = useState(true);
+  
+  //Request from services
   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${mid}?api_key=${apiKey}&language=es-MX`
-      )
-      .then((res) => {
-        setMovie(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getAMovie(mid).then((res) => {
+      setMovie(res);
+      setLoading(false);
+    });
   }, [mid]);
 
+  //Managment of global state "WishList"
   const dispatch = useDispatch();
-
   const wishListState = useSelector((state: RootState) => state.WishList);
 
   const handlerFavorites = (id: string) => {
@@ -70,10 +65,10 @@ const Movie = () => {
     }
   };
 
+  //To handle responsive desing
   const theme = useTheme();
   const laptop = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const [loading, setLoading] = useState(true);
   return (
     <>
       <Box
